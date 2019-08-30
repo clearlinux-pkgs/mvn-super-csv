@@ -4,16 +4,20 @@
 #
 Name     : mvn-super-csv
 Version  : 2.2.0
-Release  : 2
+Release  : 3
 URL      : https://github.com/super-csv/super-csv/archive/v2.2.0.tar.gz
 Source0  : https://github.com/super-csv/super-csv/archive/v2.2.0.tar.gz
-Source1  : https://repo.maven.apache.org/maven2/net/sf/supercsv/super-csv-parent/2.2.0/super-csv-parent-2.2.0.pom
-Source2  : https://repo1.maven.org/maven2/net/sf/supercsv/super-csv/2.2.0/super-csv-2.2.0.jar
-Source3  : https://repo1.maven.org/maven2/net/sf/supercsv/super-csv/2.2.0/super-csv-2.2.0.pom
+Source1  : https://repo.maven.apache.org/maven2/net/sf/supercsv/super-csv-parent/2.1.0/super-csv-parent-2.1.0.pom
+Source2  : https://repo.maven.apache.org/maven2/net/sf/supercsv/super-csv-parent/2.2.0/super-csv-parent-2.2.0.pom
+Source3  : https://repo1.maven.org/maven2/net/sf/supercsv/super-csv/2.1.0/super-csv-2.1.0.jar
+Source4  : https://repo1.maven.org/maven2/net/sf/supercsv/super-csv/2.1.0/super-csv-2.1.0.pom
+Source5  : https://repo1.maven.org/maven2/net/sf/supercsv/super-csv/2.2.0/super-csv-2.2.0.jar
+Source6  : https://repo1.maven.org/maven2/net/sf/supercsv/super-csv/2.2.0/super-csv-2.2.0.pom
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0
 Requires: mvn-super-csv-data = %{version}-%{release}
+Requires: mvn-super-csv-license = %{version}-%{release}
 
 %description
 No detailed description available
@@ -26,19 +30,39 @@ Group: Data
 data components for the mvn-super-csv package.
 
 
+%package license
+Summary: license components for the mvn-super-csv package.
+Group: Default
+
+%description license
+license components for the mvn-super-csv package.
+
+
 %prep
+%setup -q -n super-csv-2.2.0
 
 %build
 
 %install
+mkdir -p %{buildroot}/usr/share/package-licenses/mvn-super-csv
+cp LICENSE.txt %{buildroot}/usr/share/package-licenses/mvn-super-csv/LICENSE.txt
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv-parent/2.1.0
+cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv-parent/2.1.0/super-csv-parent-2.1.0.pom
+
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv-parent/2.2.0
-cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv-parent/2.2.0/super-csv-parent-2.2.0.pom
+cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv-parent/2.2.0/super-csv-parent-2.2.0.pom
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.1.0
+cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.1.0/super-csv-2.1.0.jar
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.1.0
+cp %{SOURCE4} %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.1.0/super-csv-2.1.0.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.2.0
-cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.2.0/super-csv-2.2.0.jar
+cp %{SOURCE5} %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.2.0/super-csv-2.2.0.jar
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.2.0
-cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.2.0/super-csv-2.2.0.pom
+cp %{SOURCE6} %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.2.0/super-csv-2.2.0.pom
 
 
 %files
@@ -46,6 +70,13 @@ cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/net/sf/supercsv/super-c
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/java/.m2/repository/net/sf/supercsv/super-csv-parent/2.1.0/super-csv-parent-2.1.0.pom
 /usr/share/java/.m2/repository/net/sf/supercsv/super-csv-parent/2.2.0/super-csv-parent-2.2.0.pom
+/usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.1.0/super-csv-2.1.0.jar
+/usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.1.0/super-csv-2.1.0.pom
 /usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.2.0/super-csv-2.2.0.jar
 /usr/share/java/.m2/repository/net/sf/supercsv/super-csv/2.2.0/super-csv-2.2.0.pom
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/mvn-super-csv/LICENSE.txt
